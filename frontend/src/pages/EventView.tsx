@@ -5,6 +5,8 @@ import SkeletonCard from "../components/SkeletonCard";
 import { EventType, ParticipantType } from "../types";
 import ParticipantCard from "../components/ParticipantCard";
 
+import { BACKEND_URL } from "../api/fetchEvents";
+
 export default function EventView() {
   const [event, setEvent] = useState<EventType | null>(null);
   const [participants, setParticipants] = useState<ParticipantType[] | null>(
@@ -28,7 +30,7 @@ export default function EventView() {
           eventData = location.state.event;
         } else {
           const eventResponse = await fetch(
-            `http://localhost:3000/api/events/${eventId}`,
+            `${BACKEND_URL}/api/events/${eventId}`,
           );
 
           if (!eventResponse.ok) {
@@ -41,7 +43,7 @@ export default function EventView() {
         setEvent(eventData);
 
         const participantsResponse = await fetch(
-          `http://localhost:3000/api/registrations/event/${eventId}`,
+          `${BACKEND_URL}/api/registrations/event/${eventId}`,
         );
 
         if (!participantsResponse.ok) {

@@ -4,6 +4,8 @@ import Alert from "../components/Alert";
 import { EventType } from "../types";
 import SkeletonCard from "../components/SkeletonCard";
 
+import { BACKEND_URL } from "../api/fetchEvents";
+
 export default function EventRegistration() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -33,7 +35,7 @@ export default function EventRegistration() {
           eventData = location.state.event;
         } else {
           const eventResponse = await fetch(
-            `http://localhost:3000/api/events/${eventId}`,
+            `${BACKEND_URL}/api/events/${eventId}`,
           );
 
           if (!eventResponse.ok) {
@@ -74,7 +76,7 @@ export default function EventRegistration() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/registrations", {
+      const response = await fetch(`${BACKEND_URL}/api/registrations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,8 +4,12 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(
+  cors({
+    origin: 'https://your-netlify-site.netlify.app', // Replace with your actual Netlify URL
+  })
+);
 
 const mongoURI = process.env.MONGO_URI;
 
