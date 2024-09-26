@@ -1,0 +1,24 @@
+# Event Management Application (Eliftech test task)
+
+Complexity level: **base**
+
+A web application that allows users to view events, register for them, and see the list of participants for each event.
+
+## Technologies Used
+
+- **Front-end**:
+
+  - HTML
+  - CSS
+  - React
+  - TypeScript
+  - Tailwind CSS
+  - React Router v6
+
+- **Back-end**:
+
+  - Node.js
+  - Express.js
+
+- **Database**:
+  - MongoDB Atlas
