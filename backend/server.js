@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: 'https://your-netlify-site.netlify.app', // Replace with your actual Netlify URL
+    origin: 'https://event-registration-test-task.netlify.app/',
   })
 );
 
