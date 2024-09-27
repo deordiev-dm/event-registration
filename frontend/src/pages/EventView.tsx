@@ -110,7 +110,7 @@ export default function EventView() {
     <>
       {error && (
         <Alert variant="error">
-          It seems the server is down :( <br /> Please try again later.
+          It seems the server is down. <br /> Please try again later.
         </Alert>
       )}
       <main className="flex min-h-screen flex-col p-6">
@@ -138,19 +138,24 @@ export default function EventView() {
               </p>
             </div>
           )}
-          <div className="flex flex-col items-start">
-            <label htmlFor="search" className="text-md cursor-pointer">
-              Search participants by name or email
-            </label>
-            <input
-              id="search"
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 focus-within:border-blue-400"
-              placeholder="e.g. Joe Doe"
-            />
-          </div>
+          {participants?.length ? (
+            <div className="flex flex-col items-start rounded bg-emerald-100 p-4">
+              <label
+                htmlFor="search"
+                className="text-md text-md mb-2 cursor-pointer font-semibold"
+              >
+                Search participants by name or email
+              </label>
+              <input
+                id="search"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-lg border border-emerald-600 bg-transparent px-3 py-2 focus-within:border-blue-400 md:max-w-sm"
+                placeholder="e.g. Joe Doe"
+              />
+            </div>
+          ) : null}
         </header>
         <section className="mb-10 flex-grow">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">

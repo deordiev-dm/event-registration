@@ -19,7 +19,7 @@ export default function ParticipantCard({
 
     return parts.map((part, index) => {
       return part.toLowerCase() === query.toLowerCase() ? (
-        <span key={index} className="bg-yellow-200">
+        <span key={index} className="bg-blue-500 text-white">
           {part}
         </span>
       ) : (
@@ -29,7 +29,7 @@ export default function ParticipantCard({
   }
 
   return (
-    <article className="flex flex-col rounded p-6 shadow transition-shadow">
+    <article className="flex flex-col rounded bg-blue-50 p-6 shadow transition-shadow">
       <h2 className="mb-4 text-xl font-semibold">
         {highlightText(fullName, highlight)}
       </h2>

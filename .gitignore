@@ -26,3 +26,5 @@ dist-ssr
 
 # Ignore TypeScript build info files
 *.tsbuildinfo
+
+backend/prepopulateDB.js

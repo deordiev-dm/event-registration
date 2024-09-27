@@ -23,7 +23,7 @@ export default function Pagination({
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         aria-label="Previous page"
-        className={`${currentPage === 1 && "pointer-events-none border-gray-400 bg-gray-100 text-gray-400 opacity-50"} hidden aspect-square items-center justify-center rounded border border-blue-500 px-2 sm:flex`}
+        className={`${currentPage === 1 && "pointer-events-none border-gray-400 bg-gray-100 text-gray-400 opacity-50"} hidden aspect-square items-center justify-center rounded border border-blue-500 px-2 hover:bg-blue-100 sm:flex`}
       >
         <FaArrowLeft className="h-4 w-4 transition-colors hover:text-blue-800" />
       </button>
@@ -61,7 +61,7 @@ export default function Pagination({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         aria-label="Next page"
-        className={`${currentPage === totalPages && "pointer-events-none border-gray-400 bg-gray-100 text-gray-400 opacity-50"} hidden aspect-square items-center justify-center rounded border border-blue-500 px-2 sm:flex`}
+        className={`${currentPage === totalPages && "pointer-events-none border-gray-400 bg-gray-100 text-gray-400 opacity-50"} hidden aspect-square items-center justify-center rounded border border-blue-500 px-2 hover:bg-blue-100 sm:flex`}
       >
         <FaArrowRight className="h-4 w-4 transition-colors hover:text-blue-800" />
       </button>

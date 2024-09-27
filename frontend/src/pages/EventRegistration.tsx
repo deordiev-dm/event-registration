@@ -132,12 +132,37 @@ export default function EventRegistration() {
           We're sorry, it seems the server is down. Please try again later.
         </Alert>
       )}
-      <main className="items-start space-y-8 p-6 lg:grid lg:grid-cols-3 lg:gap-x-16">
-        <section className="lg:col-span-2">
-          <header className="mb-6">
-            <h1 className="text-4xl font-bold">Event Registration</h1>
-          </header>
-          <section>
+      <main className="container mx-auto items-start space-y-8 p-6">
+        <header className="mb-6">
+          <h1 className="text-4xl font-bold">Event Registration</h1>
+        </header>
+        <div className="space-y-6">
+          {loading || !event ? (
+            <SkeletonCard />
+          ) : (
+            <section className="rounded bg-blue-200 p-4">
+              <h2 className="mb-4 text-xl font-semibold">{event.title}</h2>
+              <div className="text-md space-y-3">
+                <p>
+                  <span className="font-medium">About the event:</span>{" "}
+                  {event.description}
+                </p>
+                <p>
+                  <span className="font-medium">Organizers:</span>{" "}
+                  {event.organizer}
+                </p>
+                <p>
+                  <span className="font-medium">Event date: </span>
+                  {new Date(event.eventDate).toLocaleString("default", {
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit",
+                  })}
+                </p>
+              </div>
+            </section>
+          )}
+          <section className="">
             <form onSubmit={handleFormSubmit} className="space-y-4">
               <div className="flex flex-col items-start">
                 <label htmlFor="fullName" className="text-md cursor-pointer">
@@ -194,7 +219,7 @@ export default function EventRegistration() {
                   You can register only if you're 18 or older
                 </p>
               </div>
-              <div className="text-md">
+              <div className="text-md rounded bg-blue-200 p-4">
                 <h2 className="mb-2 text-xl font-semibold">
                   Where did you hear about this event?
                 </h2>
@@ -238,37 +263,12 @@ export default function EventRegistration() {
                   </label>
                 </div>
               </div>
-              <button className="w-full rounded-lg bg-blue-500 px-3 py-2 text-lg font-semibold text-white transition-colors hover:bg-blue-600 focus:bg-blue-700 active:bg-blue-800">
+              <button className="w-full rounded-lg bg-green-500 px-3 py-2 text-lg font-semibold text-white transition-colors hover:bg-green-600 focus:bg-green-700 active:bg-green-800">
                 Apply for the event
               </button>
             </form>
           </section>
-        </section>
-        {loading || !event ? (
-          <SkeletonCard />
-        ) : (
-          <section className="rounded bg-green-100 p-4">
-            <h2 className="mb-4 text-xl font-semibold">{event.title}</h2>
-            <div className="text-md space-y-3">
-              <p>
-                <span className="font-medium">About the event:</span>{" "}
-                {event.description}
-              </p>
-              <p>
-                <span className="font-medium">Organizers:</span>{" "}
-                {event.organizer}
-              </p>
-              <p>
-                <span className="font-medium">Event date: </span>
-                {new Date(event.eventDate).toLocaleString("default", {
-                  year: "numeric",
-                  month: "short",
-                  day: "2-digit",
-                })}
-              </p>
-            </div>
-          </section>
-        )}
+        </div>
       </main>
     </>
   );

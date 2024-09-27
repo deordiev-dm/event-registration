@@ -10,7 +10,7 @@ export default function EventCard({ event }: EventCardProps) {
 
   return (
     <article
-      className={`${hasExpired ? "bg-gray-100 opacity-50 shadow-none hover:shadow-none" : ""} flex flex-col rounded p-6 shadow transition-shadow hover:shadow-lg`}
+      className={`${hasExpired ? "bg-gray-100 opacity-50 shadow-none hover:shadow-none" : ""} flex flex-col rounded bg-blue-50 p-6 shadow transition-shadow hover:shadow-lg`}
     >
       <h2 className="mb-3 text-xl font-semibold">{event.title}</h2>
       <div className="mb-6 flex-grow space-y-2">

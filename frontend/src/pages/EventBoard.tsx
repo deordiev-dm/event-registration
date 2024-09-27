@@ -67,7 +67,7 @@ export default function EventBoard() {
         </Alert>
       )}
       <main className="flex min-h-screen flex-col p-6">
-        <header className="mb-6 flex flex-col items-start gap-x-5 sm:flex-row sm:items-end">
+        <header className="mb-6 flex flex-col items-start gap-x-5 gap-y-2 sm:flex-row sm:items-center">
           <h1 className="text-4xl font-bold">Events</h1>
           <DropdownMenu
             title={`Sort by${sortOption ? `: ${sortOption.label}` : ""}`}

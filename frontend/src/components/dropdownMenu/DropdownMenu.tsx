@@ -22,7 +22,7 @@ export default function DropdownMenu({ children, title }: Props) {
   return (
     <div
       tabIndex={0}
-      className="relative flex items-center space-x-1 rounded-md py-1 text-black"
+      className="relative flex items-center space-x-1 rounded-md bg-blue-100 px-3 py-2 text-black"
       onClick={() => setIsMenuOpen((prevState) => !prevState)}
       onMouseEnter={() => setIsMenuOpen(true)}
       onMouseLeave={() => setIsMenuOpen(false)}
@@ -36,7 +36,7 @@ export default function DropdownMenu({ children, title }: Props) {
         style={menuStyles}
         className="absolute left-0 top-full z-10 w-48 px-1 py-2"
       >
-        <div className="flex flex-col overflow-clip rounded bg-white text-black shadow-xl *:border-b-[1px] *:px-4 *:py-1 *:transition-colors last:border-none">
+        <div className="flex flex-col overflow-clip rounded bg-blue-50 text-black shadow-2xl *:border-b-[1px] *:px-4 *:py-1 *:transition-colors last:border-none">
           {children}
         </div>
       </div>
