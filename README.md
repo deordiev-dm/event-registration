@@ -1,6 +1,6 @@
 # Event Management Application (Eliftech test task)
 
-Complexity level: **base**
+Complexity level: **middle**
 
 A web application that allows users to view events, register for them, and see the list of participants for each event.
 
