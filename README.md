@@ -28,3 +28,5 @@ A web application that allows users to view events, register for them, and see t
 
   - Render (backend)
   - Netlify (frontend)
+
+[[Visit the live demo:](https://event-registration-test-task.netlify.app/)]
