@@ -23,9 +23,9 @@ export default function Pagination({
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         aria-label="Previous page"
-        style={{ color: currentPage === 1 ? "gray" : "" }}
+        className={`${currentPage === 1 && "pointer-events-none border-gray-400 bg-gray-100 text-gray-400 opacity-50"} hidden aspect-square items-center justify-center rounded border border-blue-500 px-2 sm:flex`}
       >
-        <FaArrowLeft className="h-5 w-5 transition-colors hover:text-blue-800" />
+        <FaArrowLeft className="h-4 w-4 transition-colors hover:text-blue-800" />
       </button>
       <div className="flex gap-x-2">
         {buttonLabels.map((label) => {
@@ -34,7 +34,7 @@ export default function Pagination({
             return (
               <button
                 key={nanoid()}
-                className="min-h-10 min-w-10 rounded border border-blue-500 px-3 py-1 transition-colors hover:bg-blue-100"
+                className="aspect-square min-w-8 rounded border border-blue-500 px-2 py-1 transition-colors hover:bg-blue-100"
                 style={{
                   backgroundColor: isActive ? "#3b82f6" : "",
                   color: isActive ? "#fff" : "#3b82f6",
@@ -48,7 +48,7 @@ export default function Pagination({
             return (
               <button
                 key={nanoid()}
-                className="min-h-10 min-w-10 rounded border border-blue-500 px-3 py-1 transition-colors hover:bg-blue-100"
+                className="aspect-square min-w-8 rounded border border-blue-500 px-2 py-1 transition-colors hover:bg-blue-100"
                 onClick={() => onPageChange(label.page)}
               >
                 {label.value}
@@ -61,9 +61,9 @@ export default function Pagination({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         aria-label="Next page"
-        style={{ color: currentPage === totalPages ? "gray" : "" }}
+        className={`${currentPage === totalPages && "pointer-events-none border-gray-400 bg-gray-100 text-gray-400 opacity-50"} hidden aspect-square items-center justify-center rounded border border-blue-500 px-2 sm:flex`}
       >
-        <FaArrowRight className="h-5 w-5 transition-colors hover:text-blue-800" />
+        <FaArrowRight className="h-4 w-4 transition-colors hover:text-blue-800" />
       </button>
     </nav>
   );

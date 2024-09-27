@@ -7,8 +7,17 @@ router.get('/', async (req, res) => {
   const limit = parseInt(req.query.limit) || 12;
   const skip = (page - 1) * limit;
 
+  const sortField = req.query.sortField;
+  const sortOrder = req.query.sortOrder === 'asc' ? 1 : -1;
+
   try {
-    const events = await Event.find().skip(skip).limit(limit);
+    let query = Event.find();
+
+    if (sortField) {
+      query = query.sort({[sortField]: sortOrder});
+    }
+
+    const events = await query.skip(skip).limit(limit);
     const total = await Event.countDocuments();
 
     res.json({

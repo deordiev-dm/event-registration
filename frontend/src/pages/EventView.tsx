@@ -14,6 +14,7 @@ export default function EventView() {
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const params = useParams();
   const eventId = params.id;
@@ -62,6 +63,48 @@ export default function EventView() {
   }, [eventId, location.state]);
 
   const placeholderItems = Array.from({ length: 6 });
+  const filteredParticipants = participants?.filter((participant) => {
+    return (
+      participant.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      participant.email.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
+  let displayedContent;
+
+  if (loading || participants === null) {
+    displayedContent = placeholderItems.map((_, index) => (
+      <SkeletonCard key={index} />
+    ));
+  } else if (participants && participants.length > 0) {
+    if (filteredParticipants && filteredParticipants.length > 0) {
+      displayedContent = filteredParticipants.map((person) => (
+        <ParticipantCard
+          key={person._id}
+          person={person}
+          highlight={searchQuery}
+        />
+      ));
+    } else {
+      displayedContent = (
+        <div className="text-md col-span-full bg-red-100 p-6 text-center md:text-lg">
+          No participants match your search query.
+        </div>
+      );
+    }
+  } else {
+    displayedContent = (
+      <div className="text-md col-span-full bg-green-100 p-6 text-center md:text-lg">
+        <p className="mb-3">
+          No participants have registered for this event yet. <br />
+          Be the first one!
+        </p>
+        <Link className="underline" to={`/registration/${eventId}`}>
+          Register for the event!
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -71,7 +114,7 @@ export default function EventView() {
         </Alert>
       )}
       <main className="flex min-h-screen flex-col p-6">
-        <header className="mb-6">
+        <header className="mb-6 space-y-3">
           <h1 className="text-balanc mb-5 text-2xl font-bold md:text-4xl">
             "{event?.title || "Event"}" Participants
           </h1>
@@ -95,26 +138,23 @@ export default function EventView() {
               </p>
             </div>
           )}
+          <div className="flex flex-col items-start">
+            <label htmlFor="search" className="text-md cursor-pointer">
+              Search participants by name or email
+            </label>
+            <input
+              id="search"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 focus-within:border-blue-400"
+              placeholder="e.g. Joe Doe"
+            />
+          </div>
         </header>
         <section className="mb-10 flex-grow">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-            {loading || participants === null ? (
-              placeholderItems.map((_, index) => <SkeletonCard key={index} />)
-            ) : participants && participants.length > 0 ? (
-              participants.map((person) => (
-                <ParticipantCard key={person._id} person={person} />
-              ))
-            ) : (
-              <div className="text-md col-span-full bg-green-100 p-6 text-center md:text-lg">
-                <p className="mb-3">
-                  No participants have registered for this event yet. <br />
-                  Be the first one!
-                </p>
-                <Link className="underline" to={`/registration/${eventId}`}>
-                  Register for the event!
-                </Link>
-              </div>
-            )}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            {displayedContent}
           </div>
         </section>
       </main>

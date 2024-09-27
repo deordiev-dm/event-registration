@@ -3,14 +3,24 @@ import { useLocation, useParams } from "react-router-dom";
 import Alert from "../components/Alert";
 import { EventType } from "../types";
 import SkeletonCard from "../components/SkeletonCard";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { BACKEND_URL } from "../api/fetchEvents";
+import { subYears } from "date-fns";
+
+type formDataType = {
+  fullName: string;
+  email: string;
+  dateOfBirth: null | Date;
+  referralSource: null | "social media" | "friends" | "found myself";
+};
 
 export default function EventRegistration() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<formDataType>({
     fullName: "",
     email: "",
-    dateOfBirth: "",
+    dateOfBirth: null,
     referralSource: null,
   });
   const [submissionStatus, setSubmissionStatus] = useState<
@@ -23,6 +33,8 @@ export default function EventRegistration() {
   const params = useParams();
   const eventId = params.id;
   const location = useLocation();
+
+  const maxDate = subYears(new Date(), 18);
 
   useEffect(() => {
     async function fetchEvent() {
@@ -96,7 +108,7 @@ export default function EventRegistration() {
       setFormData({
         fullName: "",
         email: "",
-        dateOfBirth: "",
+        dateOfBirth: null,
         referralSource: null,
       });
     } catch (err) {
@@ -137,7 +149,7 @@ export default function EventRegistration() {
                   name="fullName"
                   value={formData.fullName}
                   required
-                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base focus-within:border-blue-400"
+                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base valid:border-green-200 invalid:border-red-200 focus-within:border-blue-400"
                   placeholder="Joe Smith"
                   onChange={handleInputChange}
                 />
@@ -152,25 +164,35 @@ export default function EventRegistration() {
                   name="email"
                   value={formData.email}
                   required
-                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base focus-within:border-blue-400"
+                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base valid:border-green-200 invalid:border-red-200 focus-within:border-blue-400"
                   placeholder="joesmith@gmail.com"
                   onChange={handleInputChange}
                 />
               </div>
               <div className="flex flex-col items-start">
-                <label htmlFor="dateBirth" className="text-md cursor-pointer">
+                <label htmlFor="dateOfBirth" className="text-md cursor-pointer">
                   Date of birth<span className="text-red-600">*</span>
                 </label>
-                <input
-                  id="dateBirth"
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  required
-                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base focus-within:border-blue-400"
-                  placeholder="joesmith@gmail.com"
-                  onChange={handleInputChange}
+                <DatePicker
+                  selected={formData.dateOfBirth}
+                  onChange={(newDate: Date | null) =>
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      dateOfBirth: newDate,
+                    }))
+                  }
+                  dateFormat="dd/MM/yyyy"
+                  maxDate={maxDate}
+                  placeholderText="Select your date of birth"
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-base focus-within:border-blue-400"
+                  wrapperClassName="w-full"
+                  showYearDropdown
+                  showMonthDropdown
+                  dropdownMode="select"
                 />
+                <p className="mt-1 text-sm italic text-gray-400">
+                  You can register only if you're 18 or older
+                </p>
               </div>
               <div className="text-md">
                 <h2 className="mb-2 text-xl font-semibold">

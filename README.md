@@ -21,4 +21,10 @@ A web application that allows users to view events, register for them, and see t
   - Express.js
 
 - **Database**:
+
   - MongoDB Atlas
+
+  **Hosting services**
+
+  - Render (backend)
+  - Netlify (frontend)

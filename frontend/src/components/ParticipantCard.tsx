@@ -2,16 +2,41 @@ import { ParticipantType } from "../types";
 
 type ParticipantCardProps = {
   person: ParticipantType;
+  highlight?: string;
 };
 
-export default function ParticipantCard({ person }: ParticipantCardProps) {
+export default function ParticipantCard({
+  person,
+  highlight,
+}: ParticipantCardProps) {
   const { fullName, email, registrationDate } = person;
+
+  function highlightText(text: string, query: string | undefined) {
+    if (!query) return text;
+
+    const regex = new RegExp(`(${query})`, "gi");
+    const parts = text.split(regex);
+
+    return parts.map((part, index) => {
+      return part.toLowerCase() === query.toLowerCase() ? (
+        <span key={index} className="bg-yellow-200">
+          {part}
+        </span>
+      ) : (
+        part
+      );
+    });
+  }
+
   return (
     <article className="flex flex-col rounded p-6 shadow transition-shadow">
-      <h2 className="mb-4 text-xl font-semibold">{fullName}</h2>
+      <h2 className="mb-4 text-xl font-semibold">
+        {highlightText(fullName, highlight)}
+      </h2>
       <div className="space-y-2">
         <p>
-          <span className="font-medium">Email:</span> {email}
+          <span className="font-medium">Email:</span>{" "}
+          {highlightText(email, highlight)}
         </p>
         <p>
           <span className="font-medium">Registered at:</span>{" "}
