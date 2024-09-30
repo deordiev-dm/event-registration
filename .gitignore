@@ -28,3 +28,4 @@ dist-ssr
 *.tsbuildinfo
 
 backend/prepopulateDB.js
+backend/updateEvents.js

@@ -119,7 +119,7 @@ export default function EventView() {
             "{event?.title || "Event"}" Participants
           </h1>
           {event && (
-            <div className="space-y-3 rounded bg-blue-100 p-4 text-lg">
+            <div className="space-y-3 rounded bg-green-200 p-4 text-lg">
               <p>
                 <span className="font-medium">About the event:</span>{" "}
                 {event.description}
@@ -136,10 +136,14 @@ export default function EventView() {
                   day: "2-digit",
                 })}
               </p>
+              <p>
+                <span className="font-medium">Participants registered: </span>
+                {event.participantsCount}
+              </p>
             </div>
           )}
           {participants?.length ? (
-            <div className="flex flex-col items-start rounded bg-emerald-100 p-4">
+            <div className="flex flex-col items-start rounded bg-purple-100 p-4">
               <label
                 htmlFor="search"
                 className="text-md text-md mb-2 cursor-pointer font-semibold"
@@ -148,10 +152,10 @@ export default function EventView() {
               </label>
               <input
                 id="search"
-                type="text"
+                type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-lg border border-emerald-600 bg-transparent px-3 py-2 focus-within:border-blue-400 md:max-w-sm"
+                className="w-full rounded-lg border border-purple-300 bg-transparent px-3 py-2 focus-within:border-blue-400 md:max-w-sm"
                 placeholder="e.g. Joe Doe"
               />
             </div>

@@ -4,6 +4,7 @@ export type EventType = {
   eventDate: Date;
   organizer: string;
   title: string;
+  participantsCount: number;
 };
 
 export type ParticipantType = {

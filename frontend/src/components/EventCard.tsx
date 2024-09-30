@@ -30,6 +30,11 @@ export default function EventCard({ event }: EventCardProps) {
             day: "numeric",
           })}
         </p>
+        <p>
+          {" "}
+          <span className="font-medium">Participants registered: </span>
+          {event.participantsCount}
+        </p>
       </div>
       <div className="flex justify-between text-blue-500">
         <Link

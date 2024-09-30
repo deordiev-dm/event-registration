@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { BACKEND_URL } from "../api/fetchEvents";
 import { subYears } from "date-fns";
+import RadioButton from "../components/RadioButton";
 
 type formDataType = {
   fullName: string;
@@ -159,12 +160,16 @@ export default function EventRegistration() {
                     day: "2-digit",
                   })}
                 </p>
+                <p>
+                  <span className="font-medium">Participants registered: </span>
+                  {event.participantsCount}
+                </p>
               </div>
             </section>
           )}
-          <section className="">
-            <form onSubmit={handleFormSubmit} className="space-y-4">
-              <div className="flex flex-col items-start">
+          <section>
+            <form onSubmit={handleFormSubmit} className="space-y-8">
+              <div className="input-validation flex flex-col items-start">
                 <label htmlFor="fullName" className="text-md cursor-pointer">
                   Full Name<span className="text-red-600">*</span>
                 </label>
@@ -174,12 +179,12 @@ export default function EventRegistration() {
                   name="fullName"
                   value={formData.fullName}
                   required
-                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base valid:border-green-200 invalid:border-red-200 focus-within:border-blue-400"
+                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base focus-within:border-blue-400"
                   placeholder="Joe Smith"
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex flex-col items-start">
+              <div className="input-validation flex flex-col items-start">
                 <label htmlFor="email" className="text-md cursor-pointer">
                   Email<span className="text-red-600">*</span>
                 </label>
@@ -189,17 +194,27 @@ export default function EventRegistration() {
                   name="email"
                   value={formData.email}
                   required
-                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base valid:border-green-200 invalid:border-red-200 focus-within:border-blue-400"
+                  className="w-full rounded-lg border border-gray-200 bg-transparent px-3 py-2 text-base focus-within:border-blue-400"
                   placeholder="joesmith@gmail.com"
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex flex-col items-start">
-                <label htmlFor="dateOfBirth" className="text-md cursor-pointer">
-                  Date of birth<span className="text-red-600">*</span>
-                </label>
+              <div className="input-validation flex flex-col">
+                <div className="flex flex-wrap items-center justify-between gap-x-4">
+                  <label
+                    htmlFor="dateOfBirth"
+                    className="text-md cursor-pointer"
+                  >
+                    Date of birth<span className="text-red-600">*</span>
+                  </label>
+                  <p className="text-sm italic text-gray-400">
+                    You can register only if you're 18 or older
+                  </p>
+                </div>
                 <DatePicker
+                  id="dateOfBirth"
                   selected={formData.dateOfBirth}
+                  required
                   onChange={(newDate: Date | null) =>
                     setFormData((prevData) => ({
                       ...prevData,
@@ -215,53 +230,32 @@ export default function EventRegistration() {
                   showMonthDropdown
                   dropdownMode="select"
                 />
-                <p className="mt-1 text-sm italic text-gray-400">
-                  You can register only if you're 18 or older
-                </p>
               </div>
-              <div className="text-md rounded bg-blue-200 p-4">
-                <h2 className="mb-2 text-xl font-semibold">
+              <div className="text-md flex flex-col items-start space-y-1 rounded bg-purple-200 p-4">
+                <h2 className="text-xl font-semibold">
                   Where did you hear about this event?
                 </h2>
-                <div className="flex items-center gap-x-1">
-                  <input
-                    type="radio"
-                    value="social media"
-                    name="referralSource"
-                    id="socialMedia"
-                    checked={formData.referralSource === "social media"}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="socialMedia" className="cursor-pointer">
-                    Social media
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-1">
-                  <input
-                    type="radio"
-                    value="friends"
-                    name="referralSource"
-                    id="friends"
-                    checked={formData.referralSource === "friends"}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="friends" className="cursor-pointer">
-                    Friends
-                  </label>
-                </div>
-                <div className="flex items-center gap-x-1">
-                  <input
-                    type="radio"
-                    value="found myself"
-                    name="referralSource"
-                    id="foundMyself"
-                    checked={formData.referralSource === "found myself"}
-                    onChange={handleInputChange}
-                  />
-                  <label htmlFor="foundMyself" className="cursor-pointer">
-                    Found myself
-                  </label>
-                </div>
+                <RadioButton
+                  label="Social media"
+                  value="social media"
+                  name="referralSource"
+                  checked={formData.referralSource === "social media"}
+                  onChange={handleInputChange}
+                />
+                <RadioButton
+                  label="Friends"
+                  value="friends"
+                  name="referralSource"
+                  checked={formData.referralSource === "friends"}
+                  onChange={handleInputChange}
+                />
+                <RadioButton
+                  label="Found myself"
+                  value="found myself"
+                  name="referralSource"
+                  checked={formData.referralSource === "found myself"}
+                  onChange={handleInputChange}
+                />
               </div>
               <button className="w-full rounded-lg bg-green-500 px-3 py-2 text-lg font-semibold text-white transition-colors hover:bg-green-600 focus:bg-green-700 active:bg-green-800">
                 Apply for the event

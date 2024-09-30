@@ -6,3 +6,32 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+
+.input-validation input:user-valid {
+  border-color: #4ade80; /* green-400 */
+}
+
+.input-validation input:user-invalid {
+  border-color: #f87171; /* red-400 */
+}
+
+.input-validation {
+  position: relative;
+}
+
+.input-validation::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  font-size: 0.875rem;
+  padding-left: 0.25rem;
+}
+
+.input-validation:has(input:user-invalid)::after {
+  content: "Please provide correct information";
+  opacity: 1;
+  color: #f87171;
+  transition: opacity ease 300ms;
+}

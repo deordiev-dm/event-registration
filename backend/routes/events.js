@@ -2,6 +2,7 @@ const express = require('express');
 const Event = require('../models/Event');
 const router = express.Router();
 
+// get an event page
 router.get('/', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 12;
@@ -30,6 +31,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get an event with specific id
 router.get('/:id', async (req, res) => {
   try {
     const eventId = req.params.id;
